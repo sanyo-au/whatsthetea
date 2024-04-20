@@ -1,9 +1,19 @@
 import gradio as gr
+import sendemail
+
+def sentence_builder(Name, Email, Topics):
+    sendemail.send_email(Name, Email, Topics)
+    return f"""Hello {Name}, You have now subscribed to  {" and ".join(Topics)} using {Email} . """
 
 
-def greet(name):
-    return "Hello " + name + "!"
 
-
-demo = gr.Interface(fn=greet, inputs="text", outputs="text")
-demo.launch()
+demo = gr.Interface(
+    sentence_builder,
+    [
+        "text", "text",
+        gr.CheckboxGroup(["Tech", "AI", "Politics"], label="topics")
+    ],
+    "text",
+)
+if __name__ == "__main__":
+    demo.launch()
