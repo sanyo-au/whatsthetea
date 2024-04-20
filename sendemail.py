@@ -13,17 +13,11 @@ creds = flow.run_local_server(port=0)
 
 service = build('gmail', 'v1', credentials=creds)
 
-urls = {"Tech": ["https://www.youtube.com/watch?v=ytdIjfGuHZQ"], "AI": [], "Politics": []}
-
 def send_email(name, email, topics):
-    youtube_url_list = []
-    for topic in topics:
-        print(urls.get(topic))
-        for url in urls.get(topic):
-            youtube_url_list.append(url)
+
 
     # youtube_url_list = ["https://www.youtube.com/watch?v=ytdIjfGuHZQ"]
-    body, topic = whatsthetea.generate_summary(youtube_url_list)
+    body, topic = whatsthetea.generate_summary(topics)
     message = MIMEText(body)
     message['to'] = email
     message['subject'] = topic

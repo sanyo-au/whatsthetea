@@ -20,11 +20,38 @@ text_prompt = ChatPromptTemplate.from_messages([
     ("user", "{input}")
 ])
 
+urls = {"Tech": ["https://www.youtube.com/watch?v=vQChW_jgMMM&pp=ygUEdGVjaA%3D%3D",
+                 "https://www.youtube.com/watch?v=vyQv563Y-fk&pp=ygUKdGVjaG5vbG9neQ%3D%3D",
+                 "https://www.youtube.com/watch?v=PtVOpxeqTkA",
+                 "https://www.youtube.com/watch?v=Ay1yDyc8Rok",
+                 "https://www.youtube.com/watch?v=SjfW3rmlDEw"
+                 ],
+        "AI": [
+            "https://www.youtube.com/watch?v=vQChW_jgMMM&pp=ygUEdGVjaA%3D%3D",
+            "https://www.youtube.com/watch?v=OTYP896o9m0",
+            "https://www.youtube.com/watch?v=cEHFzvU-pzk",
+            "https://www.youtube.com/watch?v=5aOkIauvsow",
+            "https://www.youtube.com/watch?v=8B68a936GBg"
+        ],
+        "Politics": [
+            "https://www.youtube.com/watch?v=qaMySmraCOk",
+            "https://www.youtube.com/watch?v=q5wyOIzGuuc",
+            "https://www.youtube.com/watch?v=q9nJPImwE9g&list=RDNSq9nJPImwE9g&start_radio=1",
+            "https://www.youtube.com/watch?v=hswXYD8lZxM",
+            "https://www.youtube.com/watch?v=uN1Tss13gzc&list=RDNSuN1Tss13gzc&start_radio=1"
+        ]}
+youtube_url_list = []
+
+
 def generate_image(topic):
     image_url = DallEAPIWrapper().run("Generate an image for the topic: " + topic)
     return image_url
 
-def generate_summary(youtube_url_list):
+def generate_summary(topics):
+    for topic in topics:
+        print(urls.get(topic))
+    for url in urls.get(topic):
+        youtube_url_list.append(url)
     texts = []
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
