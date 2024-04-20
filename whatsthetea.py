@@ -9,9 +9,6 @@ _ = load_dotenv(find_dotenv())
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper
 
-import io
-import cv2
-
 # SETUP
 # Set env variable using export OPENAI_API_KEY=<your_key>
 api_key = os.environ['OPENAI_API_KEY']
@@ -35,10 +32,15 @@ def generate_summary(youtube_url_list):
     for url in youtube_url_list:
         loader = YoutubeLoader.from_youtube_url(url, add_video_info=True)
         result = loader.load()
+        # print(result)
 
         texts.extend(text_splitter.split_documents(result))
-    chain = load_summarize_chain(text_llm, chain_type="map_reduce", verbose=False)
-    return chain.run(texts)
+    chain = load_summarize_chain(text_llm, chain_type="map_reduce")
+    summary = chain.run(texts)
+
+    chain = text_prompt | text_llm
+    newsletter_content = chain.invoke({"input": "You are a newsletter reporter. Everything you say will sound like it's meant for a newsletter. Now change the following content to sound like a newsletter." + summary})
+    return newsletter_content
 
 youtube_url_list = ["https://www.youtube.com/watch?v=ytdIjfGuHZQ"]
 summary = generate_summary(youtube_url_list)
