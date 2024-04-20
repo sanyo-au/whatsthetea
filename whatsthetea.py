@@ -20,8 +20,8 @@ text_prompt = ChatPromptTemplate.from_messages([
     ("user", "{input}")
 ])
 
-def generate_image(summary):
-    image_url = DallEAPIWrapper().run(summary)
+def generate_image(topic):
+    image_url = DallEAPIWrapper().run("Generate an image for the topic: " + topic)
     return image_url
 
 def generate_summary(youtube_url_list):
@@ -40,12 +40,14 @@ def generate_summary(youtube_url_list):
 
     chain = text_prompt | text_llm
     newsletter_content = chain.invoke({"input": "You are a newsletter reporter. Everything you say will sound like it's meant for a newsletter. Now change the following content to sound like a newsletter." + summary})
-    return newsletter_content
+    topic = chain.invoke({"input": "Give me a one or two word title for the following content: " + summary})
+    return newsletter_content, topic
 
 youtube_url_list = ["https://www.youtube.com/watch?v=ytdIjfGuHZQ"]
-summary = generate_summary(youtube_url_list)
+summary, topic = generate_summary(youtube_url_list)
 print("Text summary:")
+print(topic)
 print(summary)
-image_url = generate_image(summary)
+image_url = generate_image(topic)
 print("Image URL:")
 print(image_url)
