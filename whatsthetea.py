@@ -73,7 +73,7 @@ def generate_summary(topics):
         chain = text_prompt | text_llm
         newsletter_content = chain.invoke({"input": "You are a newsletter reporter. Everything you say will sound like it's meant for a newsletter. Now change the following content to sound like a newsletter. Avoid headers and footers and make it 3 bullet points." + summary})
         newsletter_content_list.append(newsletter_content)
-        topic = chain.invoke({"input": "Give me a one or two word title for the following content: " + summary})
+        topic = chain.invoke({"input": "Give me a title with maximum 6 words for the following content: " + summary})
         topic_list.append(topic)
     
     chain = text_prompt | text_llm
