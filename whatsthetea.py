@@ -82,11 +82,14 @@ def generate_summary(topics):
     return header, newsletter_content_list, footer, topic_list
 
 # Example usage
-header, summaries, footer, topics = generate_summary(["Tech", "AI", "Politics"])
-print("Header: ", header)
-print("\n")
-for topic, summary in zip(topics, summaries):
-    print("Topic: ", topic)
-    print(summary)
-    print("\n")
-print("Footer: ", footer)
+# header, newsletter_content_list, footer, topics = generate_summary(["Tech", "AI", "Politics"])
+#
+# body = ""
+#
+# body += header + "\n"
+# for topic, summary in zip(topics, newsletter_content_list):
+#     body += topic
+#     body += summary + "\n"
+# body += "\n"
+# body += footer
+# print(body)

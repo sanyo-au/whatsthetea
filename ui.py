@@ -13,7 +13,8 @@ demo = gr.Interface(
         "text", "text",
         gr.CheckboxGroup(["Tech", "AI", "Politics"], label="topics")
     ],
-    "text",title="What's the Tea!"
+    "text", title="What's the Tea!"
+
 )
 if __name__ == "__main__":
     demo.launch()
